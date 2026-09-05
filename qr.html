@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        if (!/\.github\.io$/i.test(location.hostname)) return;
+        var repo = location.pathname.split("/").filter(Boolean)[0];
+        if (!repo) return;
+        document.write('<base href="/' + repo + '/">');
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Print table QR codes</title>
-    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -127,7 +135,7 @@
           <input id="count" type="number" min="1" max="40" value="12" style="min-width: 80px" />
         </label>
         <button type="button" id="print">Print</button>
-        <a class="back" href="./index.html">Back to menu</a>
+        <a class="back" href="index.html">Back to menu</a>
       </div>
     </div>
     <div class="grid" id="grid"></div>

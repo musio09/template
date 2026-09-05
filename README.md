@@ -74,6 +74,14 @@ Then open `http://localhost:8080`.
 
 Upload the folder to Netlify, Cloudflare Pages, GitHub Pages, or any static host. There is no build step.
 
+### GitHub Pages
+
+This repo is a **project site**, so the live URL is:
+
+`https://<user>.github.io/template/`
+
+GitHub Pages must publish the branch that contains `index.html` at the repo root (not only `README.md`). Asset paths are relative and a `<base href="/template/">` is injected on `*.github.io` so CSS, JS, and images load under `/template/`.
+
 1. Replace `js/config.js` and `assets/logo.svg`
 2. Drag the folder onto Netlify Drop, or `git push` to Pages
 3. Generate a QR code that points at the live URL

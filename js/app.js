@@ -1,5 +1,16 @@
 import { CONFIG as C } from "./config.js";
 
+/** Site root (parent of /js/), so assets work on GitHub Pages /template/. */
+const SITE_ROOT = new URL("../", import.meta.url);
+
+function assetUrl(path) {
+  if (!path) return "";
+  if (/^(https?:)?\/\//i.test(path) || path.startsWith("data:") || path.startsWith("blob:") || path.startsWith("#")) {
+    return path;
+  }
+  return new URL(String(path).replace(/^\.\//, ""), SITE_ROOT).href;
+}
+
 const ICONS = {
   search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3" stroke-linecap="round"/></svg>`,
   cart: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h2l1.2 9.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L20 8H7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.2" fill="currentColor"/><circle cx="17" cy="20" r="1.2" fill="currentColor"/></svg>`,
@@ -162,7 +173,7 @@ function render() {
   els.app.innerHTML = `
     <header class="site-header">
       <a class="brand" href="#top">
-        <img src="${escapeHtml(C.restaurant.logo)}" alt="" />
+        <img src="${escapeHtml(assetUrl(C.restaurant.logo))}" alt="" />
         <span class="brand__name">${escapeHtml(C.restaurant.name)}</span>
         ${state.table ? `<span class="table-badge">Table ${escapeHtml(state.table)}</span>` : ""}
       </a>
@@ -180,7 +191,7 @@ function render() {
     </header>
 
     <section class="hero" id="top">
-      <img class="hero__img" src="${escapeHtml(C.restaurant.heroImage)}" alt="" />
+      <img class="hero__img" src="${escapeHtml(assetUrl(C.restaurant.heroImage))}" alt="" />
       <div class="hero__overlay"></div>
       <div class="hero__content">
         <p class="hero__eyebrow">${escapeHtml(C.restaurant.eyebrow)}</p>
@@ -283,7 +294,7 @@ function render() {
 
     <footer class="site-footer">
       <p>${escapeHtml(C.priceNote)}</p>
-      <p style="margin-top:8px"><a href="./qr.html">Print table QR codes</a></p>
+      <p style="margin-top:8px"><a href="${escapeHtml(assetUrl("qr.html"))}">Print table QR codes</a></p>
     </footer>
 
     <div class="fabs ${cartCount() ? "is-raised" : ""}">
@@ -307,7 +318,7 @@ function render() {
 function featuredCard(item) {
   return `
     <article class="feat-card">
-      <img class="feat-card__img" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" data-open-item="${escapeHtml(item.id)}" />
+      <img class="feat-card__img" src="${escapeHtml(assetUrl(item.image))}" alt="${escapeHtml(item.name)}" loading="lazy" data-open-item="${escapeHtml(item.id)}" />
       <div class="feat-card__body">
         <button class="feat-card__name" data-open-item="${escapeHtml(item.id)}">${escapeHtml(item.name)}</button>
         <p class="feat-card__desc">${escapeHtml(item.description)}</p>
@@ -323,7 +334,7 @@ function dishCard(item, showPhotos) {
   const sold = item.soldOut;
   return `
     <article class="dish ${showPhotos ? "" : "no-photo"} ${sold ? "is-sold" : ""}">
-      ${showPhotos ? `<img class="dish__photo" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" data-open-item="${escapeHtml(item.id)}" />` : ""}
+      ${showPhotos ? `<img class="dish__photo" src="${escapeHtml(assetUrl(item.image))}" alt="${escapeHtml(item.name)}" loading="lazy" data-open-item="${escapeHtml(item.id)}" />` : ""}
       <button class="dish__body" data-open-item="${escapeHtml(item.id)}">
         <div class="dish__name">${escapeHtml(item.name)}</div>
         <p class="dish__desc">${escapeHtml(item.description)}</p>
@@ -431,7 +442,7 @@ function openItem(id) {
   state.itemNote = "";
   els.itemSheet.innerHTML = `
     <div class="sheet__grab"></div>
-    ${C.features.showPhotos ? `<img class="sheet__hero" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" />` : ""}
+    ${C.features.showPhotos ? `<img class="sheet__hero" src="${escapeHtml(assetUrl(item.image))}" alt="${escapeHtml(item.name)}" />` : ""}
     <div class="sheet__body">
       <div class="sheet__top">
         <h2 id="item-sheet-title">${escapeHtml(item.name)}</h2>
