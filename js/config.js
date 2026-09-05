@@ -53,9 +53,9 @@ export const CONFIG = {
   priceNote: "Prices in ETB. Tax not included.",
 
   contact: {
-    phone: "+1 (503) 555-0142",
-    phoneHref: "+15035550142",
-    whatsapp: "15035550142",
+    phone: "+2510000000",
+    phoneHref: "+2510000000",
+    whatsapp: "2510000000",
     whatsappMessage: "Hi Musio! I’d like to order from the menu.",
     email: "hello@musio09.example",
     address: "142 Grove Street, Portland, OR",
