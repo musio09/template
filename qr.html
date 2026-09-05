@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Print table QR codes</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f4efe6;
+        --ink: #1c1612;
+        --muted: #6b6158;
+        --accent: #2f4a3c;
+        --surface: #fffcf7;
+        --border: rgba(28, 22, 18, 0.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Outfit, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      .bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: end;
+        justify-content: space-between;
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--border);
+      }
+      h1 {
+        font-family: Fraunces, serif;
+        font-size: 1.8rem;
+        margin: 0 0 4px;
+      }
+      .bar p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+      label { display: grid; gap: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+      input {
+        font: inherit;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        min-width: min(420px, 80vw);
+        text-transform: none;
+        letter-spacing: 0;
+        font-weight: 400;
+        color: var(--ink);
+      }
+      .actions { display: flex; gap: 8px; align-items: end; }
+      button, .back {
+        font: inherit;
+        border: 0;
+        border-radius: 12px;
+        padding: 11px 16px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+      }
+      button {
+        background: var(--accent);
+        color: #f4efe6;
+        font-weight: 600;
+      }
+      .back { background: transparent; color: var(--accent); border: 1px solid var(--border); }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 18px;
+        padding: 24px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 18px 16px 16px;
+        text-align: center;
+        break-inside: avoid;
+      }
+      .card img {
+        width: 180px;
+        height: 180px;
+        margin: 8px auto 10px;
+        display: block;
+      }
+      .card .name {
+        font-family: Fraunces, serif;
+        font-style: italic;
+        font-size: 1.15rem;
+      }
+      .card .table {
+        font-weight: 600;
+        margin-top: 4px;
+        letter-spacing: 0.04em;
+      }
+      .card .hint { color: var(--muted); font-size: 0.78rem; margin-top: 6px; }
+      @media print {
+        .bar { display: none; }
+        body { background: #fff; }
+        .grid { padding: 0; gap: 12px; }
+        .card { border: 1px solid #ddd; box-shadow: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <div>
+        <h1>Table QR codes</h1>
+        <p id="sub">Print these, stick one on each table.</p>
+      </div>
+      <div class="actions">
+        <label>
+          Public menu URL
+          <input id="base" type="url" placeholder="https://your-menu.example" />
+        </label>
+        <label>
+          Tables
+          <input id="count" type="number" min="1" max="40" value="12" style="min-width: 80px" />
+        </label>
+        <button type="button" id="print">Print</button>
+        <a class="back" href="./index.html">Back to menu</a>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <script type="module">
+      import { CONFIG } from "./js/config.js";
+
+      const name = CONFIG.restaurant.name;
+      document.title = `${name} · Table QR codes`;
+      document.getElementById("sub").textContent = `Print these for ${name}. Guests scan and the table number is filled in automatically.`;
+
+      const baseInput = document.getElementById("base");
+      const countInput = document.getElementById("count");
+      const grid = document.getElementById("grid");
+
+      const defaultBase = `${location.origin}${location.pathname.replace(/qr\.html$/, "")}index.html`;
+      baseInput.value = defaultBase;
+
+      function paint() {
+        const base = baseInput.value.replace(/\/$/, "");
+        const n = Math.min(40, Math.max(1, Number(countInput.value) || 12));
+        grid.innerHTML = "";
+        for (let i = 1; i <= n; i++) {
+          const url = `${base}?table=${i}`;
+          const qr = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(url)}`;
+          const card = document.createElement("article");
+          card.className = "card";
+          card.innerHTML = `
+            <div class="name">${name}</div>
+            <img src="${qr}" alt="QR code for table ${i}" />
+            <div class="table">Table ${i}</div>
+            <div class="hint">Scan for the menu</div>
+          `;
+          grid.appendChild(card);
+        }
+      }
+
+      baseInput.addEventListener("input", paint);
+      countInput.addEventListener("input", paint);
+      document.getElementById("print").addEventListener("click", () => window.print());
+      paint();
+    </script>
+  </body>
+</html>
