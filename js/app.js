@@ -75,6 +75,7 @@ function formatPrice(amount) {
   return new Intl.NumberFormat(C.locale, {
     style: "currency",
     currency: C.currency,
+    currencyDisplay: "code",
   }).format(amount);
 }
 
@@ -102,7 +103,28 @@ function applyTheme() {
   document.querySelector('meta[name="theme-color"]')?.setAttribute("content", t.background);
   document.title = `${C.restaurant.name} · Menu`;
   const desc = document.querySelector('meta[name="description"]');
-  if (desc) desc.setAttribute("content", `${C.restaurant.name} — ${C.restaurant.tagline}. Browse the menu and order on WhatsApp.`);
+  if (desc) desc.setAttribute("content", `${C.restaurant.name} — ${C.restaurant.tagline}. Browse the menu and add up your bill.`);
+
+  const fav = assetUrl(C.restaurant.favicon || C.restaurant.logo);
+  document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach((el) => {
+    el.setAttribute("href", fav);
+  });
+  document.querySelector(".boot__logo")?.setAttribute("src", assetUrl(C.restaurant.logo));
+
+  const manifest = {
+    name: `${C.restaurant.name} Menu`,
+    short_name: C.restaurant.name,
+    start_url: new URL("index.html", SITE_ROOT).href,
+    display: "standalone",
+    background_color: t.background,
+    theme_color: t.accent,
+    icons: [{ src: fav, sizes: "any", type: fav.includes(".svg") ? "image/svg+xml" : "image/png" }],
+  };
+  const manifestLink = document.querySelector('link[rel="manifest"]');
+  if (manifestLink) {
+    const blob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
+    manifestLink.href = URL.createObjectURL(blob);
+  }
 }
 
 function getLocalParts() {
@@ -156,9 +178,10 @@ function tagsHtml(tags = []) {
     .join("");
 }
 
-function waLink(text) {
-  const msg = encodeURIComponent(text || C.contact.whatsappMessage);
-  return `https://wa.me/${C.contact.whatsapp}?text=${msg}`;
+function waLink() {
+  const msg = C.contact.whatsappMessage;
+  if (!msg) return `https://wa.me/${C.contact.whatsapp}`;
+  return `https://wa.me/${C.contact.whatsapp}?text=${encodeURIComponent(msg)}`;
 }
 
 function telLink() {
@@ -183,7 +206,7 @@ function render() {
             ? `<button class="icon-btn" data-open-search aria-label="Search menu">${ICONS.search}</button>`
             : ""
         }
-        <button class="icon-btn icon-btn--cart" data-open-cart aria-label="View order">
+        <button class="icon-btn icon-btn--cart" data-open-cart aria-label="View cart">
           ${ICONS.cart}
           <span class="cart-count" ${cartCount() ? "" : "hidden"}>${cartCount()}</span>
         </button>
@@ -204,7 +227,7 @@ function render() {
         </div>
         <div class="hero__ctas">
           <a class="hero-cta" href="#menu">View menu</a>
-          <a class="hero-cta hero-cta--primary" href="${waLink()}" target="_blank" rel="noopener">Order now</a>
+          <button class="hero-cta hero-cta--primary" type="button" data-open-cart>View bill</button>
         </div>
       </div>
     </section>
@@ -305,9 +328,9 @@ function render() {
     <div class="cart-bar ${cartCount() ? "is-visible" : ""}" data-open-cart>
       <div class="cart-bar__meta">
         <strong>${cartCount()} ${cartCount() === 1 ? "item" : "items"} · ${formatPrice(cartTotal())}</strong>
-        <small>View order</small>
+        <small>View bill</small>
       </div>
-      <button class="cart-bar__cta" type="button">Order now</button>
+      <button class="cart-bar__cta" type="button">View bill</button>
     </div>
   `;
 
@@ -324,7 +347,7 @@ function featuredCard(item) {
         <p class="feat-card__desc">${escapeHtml(item.description)}</p>
         <div class="feat-card__row">
           <span class="price">${formatPrice(item.price)}</span>
-          <button class="add-btn" data-add="${escapeHtml(item.id)}" aria-label="Add ${escapeHtml(item.name)}">${ICONS.plus}</button>
+          <button class="add-btn" data-add="${escapeHtml(item.id)}" aria-label="Add ${escapeHtml(item.name)} to cart">${ICONS.plus}</button>
         </div>
       </div>
     </article>`;
@@ -345,7 +368,7 @@ function dishCard(item, showPhotos) {
         ${
           sold
             ? `<span class="sold-badge">Sold out</span>`
-            : `<button class="add-btn" data-add="${escapeHtml(item.id)}" aria-label="Add ${escapeHtml(item.name)}">${ICONS.plus}</button>`
+            : `<button class="add-btn" data-add="${escapeHtml(item.id)}" aria-label="Add ${escapeHtml(item.name)} to cart">${ICONS.plus}</button>`
         }
       </div>
     </article>`;
@@ -458,13 +481,8 @@ function openItem(id) {
           <button type="button" data-step="1" aria-label="Increase">+</button>
         </div>
       </div>
-      ${
-        C.features.allowOrderNotes
-          ? `<label class="field"><span>Note</span><input type="text" data-item-note placeholder="No onions, extra chili…" /></label>`
-          : ""
-      }
       <button class="primary-btn" data-add-detail ${item.soldOut ? "disabled" : ""}>
-        ${item.soldOut ? "Sold out" : `Add · ${formatPrice(item.price)}`}
+        ${item.soldOut ? "Sold out" : `Add to cart · ${formatPrice(item.price)}`}
       </button>
     </div>
   `;
@@ -475,14 +493,11 @@ function openItem(id) {
       state.itemQty = Math.max(1, state.itemQty + Number(btn.dataset.step));
       els.itemSheet.querySelector("[data-qty]").textContent = state.itemQty;
       const cta = els.itemSheet.querySelector("[data-add-detail]");
-      if (!item.soldOut) cta.textContent = `Add · ${formatPrice(item.price * state.itemQty)}`;
+      if (!item.soldOut) cta.textContent = `Add to cart · ${formatPrice(item.price * state.itemQty)}`;
     });
   });
-  els.itemSheet.querySelector("[data-item-note]")?.addEventListener("input", (e) => {
-    state.itemNote = e.target.value;
-  });
   els.itemSheet.querySelector("[data-add-detail]")?.addEventListener("click", () => {
-    addToCart(item.id, state.itemQty, state.itemNote);
+    addToCart(item.id, state.itemQty);
     els.itemSheet.close();
   });
 }
@@ -494,11 +509,12 @@ function openCart() {
 
 function renderCart() {
   const lines = Object.values(state.cart);
+  const total = cartTotal();
   els.cartSheet.innerHTML = `
     <div class="sheet__grab"></div>
     <div class="sheet__body">
       <div class="sheet__top">
-        <h2 id="cart-sheet-title">Your order</h2>
+        <h2 id="cart-sheet-title">Your cart</h2>
         <button class="sheet__close" data-close aria-label="Close">${ICONS.close}</button>
       </div>
       ${
@@ -508,36 +524,23 @@ function renderCart() {
                 .map(
                   (line) => `
                 <div class="cart-line">
-                  <img src="${escapeHtml(line.image)}" alt="" />
+                  <img src="${escapeHtml(assetUrl(line.image))}" alt="" />
                   <div>
                     <h3>${escapeHtml(line.name)}</h3>
-                    <p>${formatPrice(line.price)}${line.note ? ` · ${escapeHtml(line.note)}` : ""}</p>
+                    <p>${formatPrice(line.price)} each</p>
                     <div class="stepper" style="margin-top:8px">
-                      <button type="button" data-line-step="${escapeHtml(line.id)}" data-delta="-1">−</button>
+                      <button type="button" data-line-step="${escapeHtml(line.id)}" data-delta="-1" aria-label="Decrease quantity">−</button>
                       <span>${line.qty}</span>
-                      <button type="button" data-line-step="${escapeHtml(line.id)}" data-delta="1">+</button>
+                      <button type="button" data-line-step="${escapeHtml(line.id)}" data-delta="1" aria-label="Increase quantity">+</button>
                     </div>
+                    <button type="button" data-remove="${escapeHtml(line.id)}" style="margin-top:6px;font-size:0.75rem;font-weight:600;color:var(--text-muted);min-height:32px">Remove</button>
                   </div>
                   <strong class="price">${formatPrice(line.price * line.qty)}</strong>
                 </div>`
                 )
                 .join("")}
             </div>
-            <div class="cart-total"><span>Total</span><span>${formatPrice(cartTotal())}</span></div>
-            ${
-              C.features.showTableField
-                ? `<label class="field"><span>Table number</span><input type="text" data-table placeholder="e.g. 12" value="${escapeHtml(state.table)}" /></label>`
-                : ""
-            }
-            <label class="field"><span>Your name</span><input type="text" data-name placeholder="Name for the order" value="${escapeHtml(state.guestName)}" /></label>
-            ${
-              C.features.allowOrderNotes
-                ? `<label class="field"><span>Order notes</span><textarea rows="2" data-note placeholder="Allergies, extra napkins…">${escapeHtml(state.note)}</textarea></label>`
-                : ""
-            }
-            <p style="font-size:0.8rem;color:var(--text-muted)">${escapeHtml(C.order.pickupLabel)} · ${escapeHtml(C.priceNote)}</p>
-            <a class="primary-btn" style="display:block;text-align:center;text-decoration:none" data-wa-order target="_blank" rel="noopener">Order now on WhatsApp</a>
-            <a class="ghost-btn" style="display:block;text-align:center;text-decoration:none" href="${telLink()}">Call to order</a>
+            <div class="cart-total"><span>Total</span><span>${formatPrice(total)}</span></div>
           `
           : `<div class="cart-empty"><p>${escapeHtml(C.order.emptyCartHint)}</p></div>`
       }
@@ -554,36 +557,13 @@ function renderCart() {
       renderCart();
     });
   });
-  els.cartSheet.querySelector("[data-table]")?.addEventListener("input", (e) => {
-    state.table = e.target.value;
+  els.cartSheet.querySelectorAll("[data-remove]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      setQty(btn.dataset.remove, 0);
+      pulseCart();
+      renderCart();
+    });
   });
-  els.cartSheet.querySelector("[data-name]")?.addEventListener("input", (e) => {
-    state.guestName = e.target.value;
-  });
-  els.cartSheet.querySelector("[data-note]")?.addEventListener("input", (e) => {
-    state.note = e.target.value;
-  });
-  els.cartSheet.querySelector("[data-wa-order]")?.addEventListener("click", (e) => {
-    e.currentTarget.href = waLink(buildOrderMessage());
-  });
-}
-
-function buildOrderMessage() {
-  const lines = Object.values(state.cart);
-  const list = lines
-    .map((l) => `• ${l.qty}× ${l.name} — ${formatPrice(l.price * l.qty)}${l.note ? ` (${l.note})` : ""}`)
-    .join("\n");
-  const bits = [
-    C.order.whatsappIntro,
-    "",
-    list,
-    "",
-    `Total: ${formatPrice(cartTotal())}`,
-  ];
-  if (state.table) bits.push(`Table: ${state.table}`);
-  if (state.guestName) bits.push(`Name: ${state.guestName}`);
-  if (state.note) bits.push(`Notes: ${state.note}`);
-  return bits.join("\n");
 }
 
 function openHours() {
@@ -595,7 +575,7 @@ function openHours() {
         <h2 id="hours-sheet-title">Hours</h2>
         <button class="sheet__close" data-close aria-label="Close">${ICONS.close}</button>
       </div>
-      <p class="sheet__desc">${status.open ? "We’re open — come in or order ahead." : "We’re closed right now. You can still browse and send an order for later."}</p>
+      <p class="sheet__desc">${status.open ? "We’re open — come in and browse the menu." : "We’re closed right now. You can still browse the menu."}</p>
       <div class="hours-list" style="color: inherit;">
         ${C.hours
           .map(
