@@ -15,15 +15,15 @@
 
 export const CONFIG = {
   restaurant: {
-    name: "Olivetta",
-    tagline: "Mediterranean café & kitchen",
+    name: "musio",
+    tagline: "gurage café & kitchen",
     eyebrow: "Café  ·  Kitchen  ·  Wine",
     description:
       "Sun-drenched plates, wood-fired breads, and a tight list of low-intervention wines. Come for breakfast, stay through last pour.",
     logo: "./assets/logo.svg",
     heroImage:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80",
-    cuisine: "Mediterranean",
+    cuisine: "gurans",
   },
 
   /**
@@ -56,12 +56,12 @@ export const CONFIG = {
     phone: "+1 (503) 555-0142",
     phoneHref: "+15035550142",
     whatsapp: "15035550142",
-    whatsappMessage: "Hi Olivetta! I’d like to order from the menu.",
-    email: "hello@olivetta.example",
+    whatsappMessage: "Hi musio! I’d like to order from the menu.",
+    email: "hello@musio09.example",
     address: "142 Grove Street, Portland, OR",
     mapsUrl: "https://maps.google.com/?q=142+Grove+Street+Portland+OR",
-    instagram: "olivetta.table",
-    instagramUrl: "https://instagram.com/olivetta.table",
+    instagram: "whos_mus",
+    instagramUrl: "https://instagram.com/whos_mus",
     website: "",
   },
 
