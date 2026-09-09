@@ -1,55 +1,62 @@
-# QR Menu Template
+# Musio · የመኒ (QR Menu)
 
-A mobile-first digital menu you can reskin for each restaurant or café. No backend — host the files, point a QR code at the URL, and guests browse, add dishes, and send the order on WhatsApp.
+A fast, mobile-first digital menu for **Musio Café & Kitchen**. No backend — host the files, point a QR code at the URL, and guests browse, add dishes, and send the order on WhatsApp.
 
-The live demo is branded as **Olivetta**, a Mediterranean café. Swap one config file and it becomes the next client.
+## How it works
+
+- **One fast page.** `index.html` is self-contained — styles, menu data, and app logic are all inlined. No separate CSS/JS requests, **no loading screen** — the menu is the first thing you see, and it appears as soon as the file arrives.
+- The whole UI is in **Amharic**, menu-first: no landing hero, no long descriptions.
+- Every dish photo is a local file in `assets/foods/` that **matches its dish** (and is compressed for fast loading).
 
 ## What guests get
 
-- Sticky header, search, and cart
-- Photo menu cards with prices, tags, and an add button
-- Category chips that follow the scroll
-- Chef’s picks carousel
-- Dish detail sheet (quantity + note)
-- **Order now** → formatted WhatsApp message (name, table, notes, totals)
+- Compact sticky header: logo, open/closed pill, search, cart
+- **Menu first** — category chips + photo dish cards, no landing page
+- Dish detail sheet (quantity)
+- **Cart → WhatsApp** order button (table number, line items, total in ETB)
 - Call, WhatsApp, and directions buttons
-- Open / closed badge from the client’s timezone and hours
-- Per-table QR codes (`?table=7` pre-fills the table field)
+- Open / closed status from the Addis Ababa timezone
+- Per-table QR codes (`?table=7` shows the table in the header)
+- No external fonts or CDNs — system Ethiopic fonts
 
-## Customize for a new client
+## Customize
 
-All client-specific content lives in **`js/config.js`**. Leave `js/app.js` and `css/styles.css` alone unless you want to change layout.
+⚠️ **The guest menu is edited inside `index.html`** (the inlined `CONFIG` object at the top of the big `<script>` block). `js/config.js` holds the same config for `qr.html` — **keep the two in sync**.
 
-| Swap | Where |
+| Swap | Where in `CONFIG` |
 | --- | --- |
-| Name, tagline, about, logo, hero photo | `restaurant` |
-| Colors, fonts, light/dark | `theme` |
+| Name, tagline, logo | `restaurant` |
+| Colors, light/dark | `theme` |
 | Phone, WhatsApp, address, Instagram | `contact` |
 | Hours & timezone | `hours`, `timezone` |
 | Currency | `locale`, `currency` |
 | Categories & dishes | `categories`, `items` |
 
-### Colors
-
-Set `theme.mode` to `"light"` or `"dark"`. A ready-made dark palette is commented at the bottom of `config.js` — paste it over `theme`.
-
 ### Photos
 
-Use any HTTPS image URL, or drop files in `assets/` and point at them:
+Local files in `assets/foods/` (one per dish), referenced from `items[].image`:
 
 ```js
-logo: "./assets/logo.svg",
-image: "./assets/shakshuka.jpg",
+image: "./assets/foods/doro-wot.jpg",
 ```
 
-Turn photos off with `features.showPhotos: false` for a compact text menu.
+Swap a photo by replacing the file (same name), or point `image` at a new path / HTTPS URL. Keep images ≤ ~720px wide so the menu stays fast. Turn photos off with `features.showPhotos: false` for a compact text menu.
 
 ### WhatsApp orders
 
 `contact.whatsapp` must be digits only, with country code, no `+` or spaces:
 
 ```js
-whatsapp: "15035550142",
+whatsapp: "2519XXXXXXXX",
+```
+
+The cart order button sends:
+
+```
+ሰላም ሙሺ! አዲስ አዝዝ:
+1. ስፔሻል ል x1 — ETB 180
+2. ቻኪን ፒዛ x1 — ETB 520
+ጠቅላ: ETB 700
 ```
 
 ### Per-table QR codes
@@ -80,22 +87,13 @@ This repo is a **project site**, so the live URL is:
 
 `https://<user>.github.io/template/`
 
-GitHub Pages must publish the branch that contains `index.html` at the repo root (not only `README.md`). Asset paths are relative and a `<base href="/template/">` is injected on `*.github.io` so CSS, JS, and images load under `/template/`.
-
-1. Replace `js/config.js` and `assets/logo.svg`
-2. Drag the folder onto Netlify Drop, or `git push` to Pages
-3. Generate a QR code that points at the live URL
-4. Print table codes from `/qr.html`
+GitHub Pages must publish the branch that contains `index.html` at the repo root. Asset paths are relative and a `<base href="/template/">` is injected on `*.github.io` so images load under `/template/`.
 
 ## Project layout
 
 ```
-index.html      Menu (the guest experience)
+index.html      Menu (self-contained: styles + config + app logic inlined)
 qr.html         Printable table QR cards
-js/config.js    ← edit this for each client
-js/app.js       App logic
-css/styles.css  Layout & theme hooks
-assets/         Logo & favicon
+js/config.js    Config for qr.html (keep in sync with index.html)
+assets/         Logo, favicon, and dish photos (assets/foods/)
 ```
-
-Demo photos are loaded from Unsplash so the template stays small. Swap them for the client’s own shots before launch.

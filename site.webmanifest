@@ -1,6 +1,6 @@
 {
-  "name": "Olivetta Menu",
-  "short_name": "Olivetta",
+  "name": "Musio Menu",
+  "short_name": "Musio",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F4EFE6",
