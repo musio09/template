@@ -13,6 +13,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Print table QR codes</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=Noto+Sans+Ethiopic:wght@400;600&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
     <style>
       :root {
         --bg: #f4efe6;
@@ -25,7 +33,7 @@
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: 'Noto Sans Ethiopic', 'Kefa', 'Ebrima', 'Segoe UI', system-ui, sans-serif;
+        font-family: Outfit, sans-serif;
         background: var(--bg);
         color: var(--ink);
       }
@@ -39,7 +47,7 @@
         border-bottom: 1px solid var(--border);
       }
       h1 {
-        font-family: 'Noto Sans Ethiopic', 'Kefa', 'Ebrima', 'Segoe UI', system-ui, sans-serif;
+        font-family: Fraunces, serif;
         font-size: 1.8rem;
         margin: 0 0 4px;
       }
@@ -95,7 +103,7 @@
         display: block;
       }
       .card .name {
-        font-family: 'Noto Sans Ethiopic', 'Kefa', 'Ebrima', 'Segoe UI', system-ui, sans-serif;
+        font-family: Fraunces, serif;
         font-style: italic;
         font-size: 1.15rem;
       }
