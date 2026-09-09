@@ -19,17 +19,45 @@ const ICONS = {
   phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h3l1 4-2 1a12 12 0 0 0 6 6l1-2 4 1v3a2 2 0 0 1-2 2A15 15 0 0 1 5 7a2 2 0 0 1 2-2z" stroke-linejoin="round"/></svg>`,
   wa: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01zm-7.01 15.24h-.01c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.76-1.85-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.07-.1-.23-.16-.48-.28z"/></svg>`,
   pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`,
-  clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2" stroke-linecap="round"/></svg>`,
   ig: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.2" cy="6.8" r="0.8" fill="currentColor"/></svg>`,
 };
 
+const T = {
+  cart: "\u12ab\u122d\u1275",
+  search: "\u1348\u120d",
+  hours: "\u1230\u12d3\u1276\u127d",
+  open: "\u12ad\u134d\u1275",
+  closed: "\u12d8\u130d\u1277\u120d",
+  table: "\u12a8\u122d\u1232",
+  addToCart: "\u12a8\u12ab\u122d\u1275 \u120b\u12ed \u1328\u121d\u122d",
+  soldOut: "\u1328\u122d\u1237\u120d",
+  yourCart: "\u12e8\u12a5\u122d\u1235\u12ce \u12ab\u122d\u1275",
+  each: "\u12a5\u12eb\u1295\u12f3\u1295\u12f1",
+  total: "\u1320\u1245\u120b\u120b",
+  remove: "\u12a0\u1235\u12c8\u130d\u12f5",
+  order: "\u1260\u12cb\u1275\u1235\u12a0\u1355 \u12a0\u12dd\u12dd",
+  items: "\u121d\u122d\u1276\u127d",
+  bill: "\u1218\u122d\u1218\u122d",
+  noResults: "\u121d\u1295\u121d \u12a0\u120d\u1270\u1308\u1298\u121d",
+  findDish: "\u121d\u130d\u1265 \u12ed\u1348\u120d\u1309",
+  searchPh: "\u12aa\u1275\u1363 \u12db\u1363 \u1261\u1293 …",
+  place: "\u1266\u1273\u127d\u1295",
+  call: "\u12f0\u12cd\u120d",
+  whatsapp: "\u12cb\u1275\u1235\u12a0\u1355",
+  directions: "\u1218\u1295\u1308\u12f5",
+  printQR: "QR \u12ae\u12f6\u127d\u1295 \u12a0\u1275\u121d",
+  totalWord: "\u1320\u1245\u120b\u120b",
+  hoursOpen: "\u12ad\u134d\u1275 \u1290\u12cb\u120d — \u1218\u1291\u1295 \u12ed\u1218\u120d\u12a9\u1362",
+  hoursClosed: "\u12a0\u1201\u1295 \u12d8\u130d\u1277\u120d\u1362 \u1218\u1291\u1295 \u12ed\u1240\u1219\u1362",
+};
+
 const TAG_LABELS = {
-  popular: "Popular",
-  veg: "Veg",
-  vegan: "Vegan",
-  spicy: "Spicy",
-  gf: "Gluten free",
-  new: "New",
+  popular: "\u12e8\u1270\u12c8\u12f0\u12f0",
+  veg: "\u12e8\u12a0\u1275\u12ad\u120d\u1275",
+  vegan: "\u126b\u1308\u1295",
+  spicy: "\u122b\u1233",
+  gf: "\u12eb\u1208 \u130d\u1209\u1270\u1295",
+  new: "\u12a0\u12f2\u1235",
 };
 
 const state = {
@@ -76,6 +104,7 @@ function formatPrice(amount) {
     style: "currency",
     currency: C.currency,
     currencyDisplay: "code",
+    maximumFractionDigits: 0,
   }).format(amount);
 }
 
@@ -101,9 +130,9 @@ function applyTheme() {
   Object.entries(map).forEach(([k, v]) => v && root.style.setProperty(k, v));
   document.body.dataset.theme = t.mode || "light";
   document.querySelector('meta[name="theme-color"]')?.setAttribute("content", t.background);
-  document.title = `${C.restaurant.name} · Menu`;
+  document.title = `${C.restaurant.name} · \u121D\u1213\u1299`;
   const desc = document.querySelector('meta[name="description"]');
-  if (desc) desc.setAttribute("content", `${C.restaurant.name} — ${C.restaurant.tagline}. Browse the menu and add up your bill.`);
+  if (desc) desc.setAttribute("content", `${C.restaurant.name} — ${T.meta_desc}`);
 
   const fav = assetUrl(C.restaurant.favicon || C.restaurant.logo);
   document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach((el) => {
@@ -113,7 +142,7 @@ function applyTheme() {
 
   const manifest = {
     name: `${C.restaurant.name} Menu`,
-    short_name: C.restaurant.name,
+    short_name: C.restaurant.shortName || C.restaurant.name,
     start_url: new URL("index.html", SITE_ROOT).href,
     display: "standalone",
     background_color: t.background,
@@ -146,7 +175,7 @@ function getLocalParts() {
 function openingStatus() {
   const { day, minutes } = getLocalParts();
   const slot = C.hours.find((h) => h.days.includes(day));
-  if (!slot) return { open: false, label: "Closed today", slot: null };
+  if (!slot) return { open: false, label: T.closed, slot: null };
   const [oh, om] = slot.open.split(":").map(Number);
   const [ch, cm] = slot.close.split(":").map(Number);
   const openMins = oh * 60 + om;
@@ -154,7 +183,7 @@ function openingStatus() {
   const open = minutes >= openMins && minutes < closeMins;
   return {
     open,
-    label: open ? "Open now" : "Closed",
+    label: open ? T.open : T.closed,
     display: slot.display,
     slot,
   };
@@ -188,80 +217,45 @@ function telLink() {
   return `tel:${C.contact.phoneHref}`;
 }
 
+function orderLink() {
+  const lines = Object.values(state.cart).map(
+    (line, i) => `${i + 1}. ${line.name} x${line.qty} \u2014 ${formatPrice(line.price * line.qty)}`
+  );
+  const tableLine = state.table ? `${T.table} ${state.table}\n` : "";
+  const msg = `${C.order.whatsappIntro}\n${tableLine}${lines.join("\n")}\n${T.totalWord}: ${formatPrice(cartTotal())}`;
+  return `https://wa.me/${C.contact.whatsapp}?text=${encodeURIComponent(msg)}`;
+}
+
 function render() {
   const open = openingStatus();
-  const featured = C.items.filter((i) => i.featured);
   const showPhotos = C.features.showPhotos !== false;
+  const brand = C.restaurant.shortName || C.restaurant.name;
 
   els.app.innerHTML = `
-    <header class="site-header">
+    <header class="site-header" id="top">
       <a class="brand" href="#top">
         <img src="${escapeHtml(assetUrl(C.restaurant.logo))}" alt="" />
-        <span class="brand__name">${escapeHtml(C.restaurant.name)}</span>
-        ${state.table ? `<span class="table-badge">Table ${escapeHtml(state.table)}</span>` : ""}
+        <span class="brand__name">${escapeHtml(brand)}</span>
+        ${state.table ? `<span class="table-badge">${T.table} ${escapeHtml(state.table)}</span>` : ""}
       </a>
       <div class="header-actions">
+        <button class="status-pill ${open.open ? "pill--live" : "pill--closed"}" data-open-hours type="button" aria-label="${T.hours}">
+          ${escapeHtml(open.label)}
+        </button>
         ${
           C.features.showSearch
-            ? `<button class="icon-btn" data-open-search aria-label="Search menu">${ICONS.search}</button>`
+            ? `<button class="icon-btn" data-open-search aria-label="${T.search}">${ICONS.search}</button>`
             : ""
         }
-        <button class="icon-btn icon-btn--cart" data-open-cart aria-label="View cart">
+        <button class="icon-btn icon-btn--cart" data-open-cart aria-label="${T.cart}">
           ${ICONS.cart}
           <span class="cart-count" ${cartCount() ? "" : "hidden"}>${cartCount()}</span>
         </button>
       </div>
     </header>
 
-    <section class="hero" id="top">
-      <img class="hero__img" src="${escapeHtml(assetUrl(C.restaurant.heroImage))}" alt="" />
-      <div class="hero__overlay"></div>
-      <div class="hero__content">
-        <p class="hero__eyebrow">${escapeHtml(C.restaurant.eyebrow)}</p>
-        <h1>${escapeHtml(C.restaurant.name)}</h1>
-        <p class="hero__tag">${escapeHtml(C.restaurant.tagline)}</p>
-        <div class="hero__meta">
-          <button class="pill ${open.open ? "pill--live" : "pill--closed"}" data-open-hours type="button">${escapeHtml(open.label)}</button>
-          <span class="pill">${escapeHtml(open.display || C.restaurant.cuisine)}</span>
-          ${C.features.showRating && C.rating ? `<span class="pill">★ ${escapeHtml(C.rating.score)} · ${escapeHtml(C.rating.label)}</span>` : ""}
-        </div>
-        <div class="hero__ctas">
-          <a class="hero-cta" href="#menu">View menu</a>
-          <button class="hero-cta hero-cta--primary" type="button" data-open-cart>View bill</button>
-        </div>
-      </div>
-    </section>
-
-    <nav class="quick-actions" aria-label="Contact">
-      <a class="qa qa--call" href="${telLink()}">
-        <span class="qa__icon">${ICONS.phone}</span>
-        Call
-      </a>
-      <a class="qa qa--wa" href="${waLink()}" target="_blank" rel="noopener">
-        <span class="qa__icon">${ICONS.wa}</span>
-        WhatsApp
-      </a>
-      <a class="qa" href="${escapeHtml(C.contact.mapsUrl)}" target="_blank" rel="noopener">
-        <span class="qa__icon">${ICONS.pin}</span>
-        Directions
-      </a>
-    </nav>
-
-    ${
-      C.features.showFeatured && featured.length
-        ? `
-      <div class="section-head">
-        <h2>Chef’s picks</h2>
-        <p>Start here</p>
-      </div>
-      <div class="featured-row">
-        ${featured.map((item) => featuredCard(item)).join("")}
-      </div>`
-        : ""
-    }
-
     <div class="cat-nav-wrap">
-      <nav class="cat-nav" aria-label="Menu categories">
+      <nav class="cat-nav" aria-label="${C.restaurant.name}">
         ${C.categories
           .map(
             (cat) => `
@@ -291,12 +285,11 @@ function render() {
 
     <section class="contact" id="contact">
       <div>
-        <h2>Find us</h2>
-        <p>${escapeHtml(C.restaurant.description)}</p>
+        <h2>${T.place}</h2>
         <div class="contact-list">
           <a href="${escapeHtml(C.contact.mapsUrl)}" target="_blank" rel="noopener">${ICONS.pin} ${escapeHtml(C.contact.address)}</a>
           <a href="${telLink()}">${ICONS.phone} ${escapeHtml(C.contact.phone)}</a>
-          <a href="${waLink()}" target="_blank" rel="noopener">${ICONS.wa} WhatsApp</a>
+          <a href="${waLink()}" target="_blank" rel="noopener">${ICONS.wa} ${T.whatsapp}</a>
           ${
             C.contact.instagram
               ? `<a href="${escapeHtml(C.contact.instagramUrl)}" target="_blank" rel="noopener">${ICONS.ig} @${escapeHtml(C.contact.instagram)}</a>`
@@ -317,40 +310,25 @@ function render() {
 
     <footer class="site-footer">
       <p>${escapeHtml(C.priceNote)}</p>
-      <p style="margin-top:8px"><a href="${escapeHtml(assetUrl("qr.html"))}">Print table QR codes</a></p>
+      <p style="margin-top:8px"><a href="${escapeHtml(assetUrl("qr.html"))}">${T.printQR}</a></p>
     </footer>
 
     <div class="fabs ${cartCount() ? "is-raised" : ""}">
-      <a class="fab fab--wa" href="${waLink()}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICONS.wa}</a>
-      <a class="fab fab--call" href="${telLink()}" aria-label="Call">${ICONS.phone}</a>
+      <a class="fab fab--wa" href="${waLink()}" target="_blank" rel="noopener" aria-label="${T.whatsapp}">${ICONS.wa}</a>
+      <a class="fab fab--call" href="${telLink()}" aria-label="${T.call}">${ICONS.phone}</a>
     </div>
 
     <div class="cart-bar ${cartCount() ? "is-visible" : ""}" data-open-cart>
       <div class="cart-bar__meta">
-        <strong>${cartCount()} ${cartCount() === 1 ? "item" : "items"} · ${formatPrice(cartTotal())}</strong>
-        <small>View bill</small>
+        <strong>${cartCount()} ${T.items} · ${formatPrice(cartTotal())}</strong>
+        <small>${T.bill}</small>
       </div>
-      <button class="cart-bar__cta" type="button">View bill</button>
+      <button class="cart-bar__cta" type="button">${T.bill}</button>
     </div>
   `;
 
   bindAppEvents();
   observeCategories();
-}
-
-function featuredCard(item) {
-  return `
-    <article class="feat-card">
-      <img class="feat-card__img" src="${escapeHtml(assetUrl(item.image))}" alt="${escapeHtml(item.name)}" loading="lazy" data-open-item="${escapeHtml(item.id)}" />
-      <div class="feat-card__body">
-        <button class="feat-card__name" data-open-item="${escapeHtml(item.id)}">${escapeHtml(item.name)}</button>
-        <p class="feat-card__desc">${escapeHtml(item.description)}</p>
-        <div class="feat-card__row">
-          <span class="price">${formatPrice(item.price)}</span>
-          <button class="add-btn" data-add="${escapeHtml(item.id)}" aria-label="Add ${escapeHtml(item.name)} to cart">${ICONS.plus}</button>
-        </div>
-      </div>
-    </article>`;
 }
 
 function dishCard(item, showPhotos) {
@@ -360,15 +338,15 @@ function dishCard(item, showPhotos) {
       ${showPhotos ? `<img class="dish__photo" src="${escapeHtml(assetUrl(item.image))}" alt="${escapeHtml(item.name)}" loading="lazy" data-open-item="${escapeHtml(item.id)}" />` : ""}
       <button class="dish__body" data-open-item="${escapeHtml(item.id)}">
         <div class="dish__name">${escapeHtml(item.name)}</div>
-        <p class="dish__desc">${escapeHtml(item.description)}</p>
-        <div class="tags">${tagsHtml(item.tags)}</div>
+        ${item.description ? `<p class="dish__desc">${escapeHtml(item.description)}</p>` : ""}
+        ${item.tags?.length ? `<div class="tags">${tagsHtml(item.tags)}</div>` : ""}
       </button>
       <div class="dish__side">
         <span class="price">${formatPrice(item.price)}</span>
         ${
           sold
-            ? `<span class="sold-badge">Sold out</span>`
-            : `<button class="add-btn" data-add="${escapeHtml(item.id)}" aria-label="Add ${escapeHtml(item.name)} to cart">${ICONS.plus}</button>`
+            ? `<span class="sold-badge">${T.soldOut}</span>`
+            : `<button class="add-btn" data-add="${escapeHtml(item.id)}" aria-label="${T.addToCart}">${ICONS.plus}</button>`
         }
       </div>
     </article>`;
@@ -455,7 +433,7 @@ function pulseCart() {
   bar?.classList.toggle("is-visible", n > 0);
   fabs?.classList.toggle("is-raised", n > 0);
   const meta = document.querySelector(".cart-bar__meta strong");
-  if (meta) meta.textContent = `${n} ${n === 1 ? "item" : "items"} · ${formatPrice(cartTotal())}`;
+  if (meta) meta.textContent = `${n} ${T.items} · ${formatPrice(cartTotal())}`;
 }
 
 function openItem(id) {
@@ -469,20 +447,20 @@ function openItem(id) {
     <div class="sheet__body">
       <div class="sheet__top">
         <h2 id="item-sheet-title">${escapeHtml(item.name)}</h2>
-        <button class="sheet__close" data-close aria-label="Close">${ICONS.close}</button>
+        <button class="sheet__close" data-close aria-label="close">${ICONS.close}</button>
       </div>
-      <div class="tags">${tagsHtml(item.tags)}</div>
-      <p class="sheet__desc">${escapeHtml(item.description)}</p>
+      ${item.tags?.length ? `<div class="tags">${tagsHtml(item.tags)}</div>` : ""}
+      ${item.description ? `<p class="sheet__desc">${escapeHtml(item.description)}</p>` : ""}
       <div class="qty-row">
         <strong class="price">${formatPrice(item.price)}</strong>
         <div class="stepper">
-          <button type="button" data-step="-1" aria-label="Decrease">−</button>
+          <button type="button" data-step="-1" aria-label="-">−</button>
           <span data-qty>1</span>
-          <button type="button" data-step="1" aria-label="Increase">+</button>
+          <button type="button" data-step="1" aria-label="+">+</button>
         </div>
       </div>
       <button class="primary-btn" data-add-detail ${item.soldOut ? "disabled" : ""}>
-        ${item.soldOut ? "Sold out" : `Add to cart · ${formatPrice(item.price)}`}
+        ${item.soldOut ? T.soldOut : `${T.addToCart} · ${formatPrice(item.price)}`}
       </button>
     </div>
   `;
@@ -493,7 +471,7 @@ function openItem(id) {
       state.itemQty = Math.max(1, state.itemQty + Number(btn.dataset.step));
       els.itemSheet.querySelector("[data-qty]").textContent = state.itemQty;
       const cta = els.itemSheet.querySelector("[data-add-detail]");
-      if (!item.soldOut) cta.textContent = `Add to cart · ${formatPrice(item.price * state.itemQty)}`;
+      if (!item.soldOut) cta.textContent = `${T.addToCart} · ${formatPrice(item.price * state.itemQty)}`;
     });
   });
   els.itemSheet.querySelector("[data-add-detail]")?.addEventListener("click", () => {
@@ -514,8 +492,8 @@ function renderCart() {
     <div class="sheet__grab"></div>
     <div class="sheet__body">
       <div class="sheet__top">
-        <h2 id="cart-sheet-title">Your cart</h2>
-        <button class="sheet__close" data-close aria-label="Close">${ICONS.close}</button>
+        <h2 id="cart-sheet-title">${T.yourCart}</h2>
+        <button class="sheet__close" data-close aria-label="close">${ICONS.close}</button>
       </div>
       ${
         lines.length
@@ -527,20 +505,21 @@ function renderCart() {
                   <img src="${escapeHtml(assetUrl(line.image))}" alt="" />
                   <div>
                     <h3>${escapeHtml(line.name)}</h3>
-                    <p>${formatPrice(line.price)} each</p>
+                    <p>${formatPrice(line.price)} ${T.each}</p>
                     <div class="stepper" style="margin-top:8px">
-                      <button type="button" data-line-step="${escapeHtml(line.id)}" data-delta="-1" aria-label="Decrease quantity">−</button>
+                      <button type="button" data-line-step="${escapeHtml(line.id)}" data-delta="-1" aria-label="-">−</button>
                       <span>${line.qty}</span>
-                      <button type="button" data-line-step="${escapeHtml(line.id)}" data-delta="1" aria-label="Increase quantity">+</button>
+                      <button type="button" data-line-step="${escapeHtml(line.id)}" data-delta="1" aria-label="+">+</button>
                     </div>
-                    <button type="button" data-remove="${escapeHtml(line.id)}" style="margin-top:6px;font-size:0.75rem;font-weight:600;color:var(--text-muted);min-height:32px">Remove</button>
+                    <button type="button" data-remove="${escapeHtml(line.id)}" style="margin-top:6px;font-size:0.75rem;font-weight:600;color:var(--text-muted);min-height:32px">${T.remove}</button>
                   </div>
                   <strong class="price">${formatPrice(line.price * line.qty)}</strong>
                 </div>`
                 )
                 .join("")}
             </div>
-            <div class="cart-total"><span>Total</span><span>${formatPrice(total)}</span></div>
+            <div class="cart-total"><span>${T.total}</span><span>${formatPrice(total)}</span></div>
+            <a class="primary-btn order-btn" href="${orderLink()}" target="_blank" rel="noopener">${ICONS.wa} ${T.order}</a>
           `
           : `<div class="cart-empty"><p>${escapeHtml(C.order.emptyCartHint)}</p></div>`
       }
@@ -572,10 +551,10 @@ function openHours() {
     <div class="sheet__grab"></div>
     <div class="sheet__body">
       <div class="sheet__top">
-        <h2 id="hours-sheet-title">Hours</h2>
-        <button class="sheet__close" data-close aria-label="Close">${ICONS.close}</button>
+        <h2 id="hours-sheet-title">${T.hours}</h2>
+        <button class="sheet__close" data-close aria-label="close">${ICONS.close}</button>
       </div>
-      <p class="sheet__desc">${status.open ? "We’re open — come in and browse the menu." : "We’re closed right now. You can still browse the menu."}</p>
+      <p class="sheet__desc">${status.open ? T.hoursOpen : T.hoursClosed}</p>
       <div class="hours-list" style="color: inherit;">
         ${C.hours
           .map(
@@ -594,12 +573,12 @@ function openSearch() {
     <div class="sheet__grab"></div>
     <div class="sheet__body">
       <div class="sheet__top">
-        <h2 id="search-sheet-title">Search</h2>
-        <button class="sheet__close" data-close aria-label="Close">${ICONS.close}</button>
+        <h2 id="search-sheet-title">${T.search}</h2>
+        <button class="sheet__close" data-close aria-label="close">${ICONS.close}</button>
       </div>
       <label class="field">
-        <span>Find a dish</span>
-        <input type="search" data-q placeholder="Shakshuka, pizza, espresso…" autofocus />
+        <span>${T.findDish}</span>
+        <input type="search" data-q placeholder="${T.searchPh}" autofocus />
       </label>
       <div class="search-list" data-results></div>
     </div>
@@ -610,11 +589,11 @@ function openSearch() {
   const paint = () => {
     const q = input.value.trim().toLowerCase();
     const matches = q
-      ? C.items.filter((i) => `${i.name} ${i.description} ${i.tags.join(" ")}`.toLowerCase().includes(q))
+      ? C.items.filter((i) => `${i.name} ${i.description || ""} ${i.tags.join(" ")}`.toLowerCase().includes(q))
       : C.items.slice(0, 8);
     results.innerHTML = matches.length
       ? matches.map((item) => dishCard(item, true)).join("")
-      : `<p class="cart-empty">No dishes match that.</p>`;
+      : `<p class="cart-empty">${T.noResults}</p>`;
     results.querySelectorAll("[data-add]").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
