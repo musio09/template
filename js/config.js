@@ -3,6 +3,13 @@
  *  QR MENU — CLIENT CONFIG
  *  All client-specific content lives here. Edit this file per restaurant.
  *
+ *  ⚠️ SYNC NOTE: `index.html` inlines its own copy of this CONFIG so the
+ *  guest page opens instantly (single file, no extra requests). If you
+ *  change anything here, apply the same change to the `CONFIG` object at
+ *  the top of the inline <script> in index.html.
+ *
+ *  This file is imported by qr.html (printable table QR codes).
+ *
  *  Musio Café & Kitchen — Amharic menu.
  *  Food photos are local files in ./assets/foods/ so the menu loads fast
  *  and every photo matches its dish. To swap a photo, replace the file
@@ -17,7 +24,7 @@ export const CONFIG = {
     favicon: "./assets/favicon.svg",
     tagline: "ኢትዮጵያ · ቡርጌር · ፒዛ · ጭማቂ · ቡና",
     description:
-      "Ethiopian café serving classic local dishes, burgers, pizza, pasta, fresh juices, coffee, and desserts.",
+      "የኢትዮጵያ ካፌ — ክላሲ ምግች፣ ቡርር፣ ፒዛ፣ ፓስ፣ ጭማቂ፣ ቡና እና ጥ።",
     logo: "./assets/logo.svg",
   },
 
@@ -45,13 +52,13 @@ export const CONFIG = {
 
   locale: "en-ET",
   currency: "ETB",
-  priceNote: "ዋጋዎች በኢትዮጵያ ብር (ETB) ናቸው።",
+  priceNote: "ዋጋዎች በኢትዮጵያ ር (ETB) ናቸው።",
 
   contact: {
     phone: "+2510000000",
     phoneHref: "+2510000000",
     whatsapp: "2510000000",
-    whatsappMessage: "ሰላም ሙሺ! መኑን ልልግ እልጋለሁ።",
+    whatsappMessage: "ሰላም ሙሺ! መን ልል እልጋለሁ።",
     email: "hello@musio09.example",
     address: "142 Grove Street, Portland, OR",
     mapsUrl: "https://maps.google.com/?q=142+Grove+Street+Portland+OR",
@@ -81,9 +88,9 @@ export const CONFIG = {
 
   order: {
     minOrder: 0,
-    pickupLabel: "Order for pickup / table",
-  whatsappIntro: "ሰላም ሙሺ! አዲሰ አዝዝ:",
-  emptyCartHint: "ጥቂት ምግብ ይጨምሩ፣ አዝዝንም በዋትስአፕ ይላኩ።",
+    pickupLabel: "ለምርባት / ንጠረዥ አዝዝ",
+    whatsappIntro: "ሰላም ሙሺ! አዲስ አዝዝ:",
+    emptyCartHint: "ጥቂት ምግብ ይጨምሩ፣ አዝንም በዋትስአፕ ይላኩ።",
   },
 
   categories: [
@@ -92,8 +99,8 @@ export const CONFIG = {
     { id: "burgers", name: "ቡርጌርና ሳንዴዊች" },
     { id: "pizza", name: "ፒዛና ፓስ" },
     { id: "sides", name: "ሰይድስ" },
-    { id: "drinks", name: "ማሽና ጭማቂ" },
-    { id: "desserts", name: "ጥግ" },
+    { id: "drinks", name: "ማሽና ጭማ" },
+    { id: "desserts", name: "ጥ" },
   ],
 
   items: [
@@ -117,7 +124,7 @@ export const CONFIG = {
     {
       id: "special-firfir",
       category: "breakfast",
-      name: "ስፔሻል ፍርፍር",
+      name: "ስፔሻል ፍርር",
       price: 220,
       image: "./assets/foods/special-firfir.jpg",
       tags: ["ethiopian", "popular"],
@@ -134,7 +141,7 @@ export const CONFIG = {
     {
       id: "doro-wot",
       category: "ethiopian",
-      name: "ዶሮ ጥ",
+      name: "ዶሮ ",
       price: 480,
       image: "./assets/foods/doro-wot.jpg",
       tags: ["ethiopian", "popular"],
@@ -210,7 +217,7 @@ export const CONFIG = {
     {
       id: "chicken-sandwich",
       category: "burgers",
-      name: "ግሪል ቻኪን ሳንዴዊች",
+      name: "ግሪል ቻኪን ንዴዊች",
       price: 360,
       image: "./assets/foods/grilled-chicken-sandwich.jpg",
       tags: [],
@@ -235,7 +242,7 @@ export const CONFIG = {
     {
       id: "beef-special-pizza",
       category: "pizza",
-      name: "ቪፍ ስፔሻል ፒዛ",
+      name: "ቪፍ ፔሻል ዛ",
       price: 560,
       image: "./assets/foods/beef-special-pizza.jpg",
       tags: ["popular"],
@@ -261,7 +268,7 @@ export const CONFIG = {
     {
       id: "crispy-fries",
       category: "sides",
-      name: "ክሪስፒ ቁርስ",
+      name: "ክሪስ ቁርስ",
       price: 150,
       image: "./assets/foods/crispy-fries.jpg",
       tags: ["veg"],
@@ -319,7 +326,7 @@ export const CONFIG = {
     {
       id: "avocado-juice",
       category: "drinks",
-      name: "የአቮካዶ ጭማቂ",
+      name: "የአቮካ ጭማቂ",
       price: 200,
       image: "./assets/foods/avocado-juice.jpg",
       tags: ["popular"],
@@ -327,7 +334,7 @@ export const CONFIG = {
     {
       id: "papaya-juice",
       category: "drinks",
-      name: "የፓፓያ ጭማቂ",
+      name: "የፓያ ጭማቂ",
       price: 180,
       image: "./assets/foods/papaya-juice.jpg",
       tags: [],
@@ -335,7 +342,7 @@ export const CONFIG = {
     {
       id: "special-spris",
       category: "drinks",
-      name: "ስፔሻል ስፕሪስ",
+      name: "ስፔሻል ፕሪስ",
       price: 230,
       image: "./assets/foods/special-spris.jpg",
       tags: ["popular"],
@@ -377,32 +384,10 @@ export const CONFIG = {
     {
       id: "fruit-salad",
       category: "desserts",
-      name: "የፍራፍሬ ሴላድ",
+      name: "የፍራሬ ሴድ",
       price: 180,
       image: "./assets/foods/fruit-salad.jpg",
       tags: ["veg"],
     },
   ],
 };
-
-/**
- * Optional dark theme — copy these values into `theme` above to switch.
- *
- * theme: {
- *   mode: "dark",
- *   background: "#141210",
- *   surface: "#1C1916",
- *   elevated: "#26211C",
- *   text: "#F4EFE6",
- *   textMuted: "#B4A99C",
- *   primary: "#E08A4F",
- *   primaryContrast: "#1C1612",
- *   accent: "#8FAE96",
- *   accentContrast: "#141210",
- *   border: "rgba(244, 239, 230, 0.12)",
- *   overlay: "rgba(8, 6, 4, 0.6)",
- *   radius: "18px",
- *   fontDisplay: "'Noto Sans Ethiopic', 'Kefa', 'Ebrima', 'Segoe UI', system-ui, sans-serif",
- *   fontBody: "'Noto Sans Ethiopic', 'Kefa', 'Ebrima', 'Segoe UI', system-ui, sans-serif",
- * }
- */
