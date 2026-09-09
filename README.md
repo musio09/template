@@ -1,20 +1,21 @@
-# QR Menu Template
+# Musio Café & Kitchen — QR Menu
 
-A mobile-first digital menu you can reskin for each restaurant or café. No backend — host the files, point a QR code at the URL, and guests browse, add dishes, and send the order on WhatsApp.
+A mobile-first digital menu for the café. No backend, no build step: the menu is the page, the photos live in `assets/menu/`, and everything is driven by `js/config.js`.
 
-The live demo is branded as **Olivetta**, a Mediterranean café. Swap one config file and it becomes the next client.
+Guests scan the table QR code, see the dish list straight away (Amharic names, prices in ብር, no long descriptions), tap **+** to add, and send the bill on WhatsApp.
 
 ## What guests get
 
-- Sticky header, search, and cart
-- Photo menu cards with prices, tags, and an add button
+- Sticky header with search and cart
+- Amharic dish names with a matching photo each — no descriptions to read
 - Category chips that follow the scroll
-- Chef’s picks carousel
-- Dish detail sheet (quantity + note)
-- **Order now** → formatted WhatsApp message (name, table, notes, totals)
-- Call, WhatsApp, and directions buttons
-- Open / closed badge from the client’s timezone and hours
-- Per-table QR codes (`?table=7` pre-fills the table field)
+- Dish sheet for quantity
+- **Send order on WhatsApp** → formatted message (dishes, quantities, total, table)
+- Call, WhatsApp and directions buttons
+- Open / closed badge from the café’s timezone and hours
+- Per-table QR codes (`?table=7` shows the table on every screen)
+
+The page paints immediately: fonts load in the background and the dish photos are local files, so there is no “Setting the table…” wait any more.
 
 ## Customize for a new client
 
@@ -22,12 +23,13 @@ All client-specific content lives in **`js/config.js`**. Leave `js/app.js` and `
 
 | Swap | Where |
 | --- | --- |
-| Name, tagline, about, logo, hero photo | `restaurant` |
+| Name, Amharic tagline, logo | `restaurant` |
 | Colors, fonts, light/dark | `theme` |
 | Phone, WhatsApp, address, Instagram | `contact` |
 | Hours & timezone | `hours`, `timezone` |
-| Currency | `locale`, `currency` |
-| Categories & dishes | `categories`, `items` |
+| Currency label | `locale`, `currency` |
+| Categories & dishes (name, price, photo, badge) | `categories`, `items` |
+| Badge wording (ተወዳጅ, ተክል…) | `tagLabels` |
 
 ### Colors
 
@@ -35,14 +37,14 @@ Set `theme.mode` to `"light"` or `"dark"`. A ready-made dark palette is commente
 
 ### Photos
 
-Use any HTTPS image URL, or drop files in `assets/` and point at them:
+Drop the dish photo in `assets/menu/<dish-id>.jpg` and point at it — the file name matches the dish `id`, so the picture and the dish can't drift apart:
 
 ```js
-logo: "./assets/logo.svg",
-image: "./assets/shakshuka.jpg",
+{ id: "doro-wot", category: "ethiopian", name: "ዶሮ ወጥ", price: 480, image: "./assets/menu/doro-wot.jpg", tags: ["popular"] },
 ```
 
-Turn photos off with `features.showPhotos: false` for a compact text menu.
+Suggested size: 440×440 px, square crop (that is what is in the repo now; replace with the café's own shots any time).
+Turn photos off with `features.showPhotos: false` for a text-only menu.
 
 ### WhatsApp orders
 
@@ -98,4 +100,4 @@ css/styles.css  Layout & theme hooks
 assets/         Logo & favicon
 ```
 
-Demo photos are loaded from Unsplash so the template stays small. Swap them for the client’s own shots before launch.
+Photos in `assets/menu/` are placeholders — swap them for the café's own shots before launch.
