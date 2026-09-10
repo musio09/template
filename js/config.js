@@ -1,10 +1,8 @@
 ```js
 /**
- * ───────────────────────────────────────────────────────────────────────────
  * QR MENU — CLIENT CONFIG
  * Menu-first: Amharic dish names, no descriptions, local photos in assets/menu.
- * Edit prices here (ETB). Add a photo to assets/menu/ and point `image` at it.
- * ───────────────────────────────────────────────────────────────────────────
+ * Edit prices here (ETB). Add a photo to assets/menu/ and point image at it.
  */
 
 export const CONFIG = {
