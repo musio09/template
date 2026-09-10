@@ -1,4 +1,3 @@
-```js
 /**
  * QR MENU — CLIENT CONFIG
  * Menu-first: Amharic dish names, no descriptions, local photos in assets/menu.
@@ -28,7 +27,7 @@ export const CONFIG = {
     overlay: "rgba(20, 14, 10, 0.45)",
     radius: "16px",
     fontDisplay: '"Fraunces", "Noto Serif Ethiopic", "Times New Roman", serif',
-    fontBody: '"Outfit", "Noto Sans Ethiopic", "Ebrima", "Segoe UI", sans-serif",
+    fontBody: '"Outfit", "Noto Sans Ethiopic", "Ebrima", "Segoe UI", sans-serif',
   },
 
   locale: "am-ET",
@@ -391,4 +390,3 @@ export const CONFIG = {
     },
   ],
 };
-```
