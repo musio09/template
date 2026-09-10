@@ -246,7 +246,6 @@ function render() {
       <div class="footer-links">
         <a href="${escapeHtml(C.contact.instagramUrl)}" target="_blank" rel="noopener">@${escapeHtml(C.contact.instagram)}</a>
         <a href="${telLink()}">${escapeHtml(C.contact.phone)}</a>
-        <a href="${escapeHtml(assetUrl("qr.html"))}">Print table QR codes</a>
       </div>
     </footer>
 
